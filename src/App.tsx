@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { stopCounting } from "./Utils/countLoad";
 import ProgressBar from "./Components/ProgressBar/ProgressBar";
 
 import "./App.scss";
@@ -8,11 +7,10 @@ function App() {
   const [numbersList, setNumbersList] = useState<string[]>([]);
   const [showProgressiveBar, setShowProgressiveBar] = useState<boolean>(false);
   const [startGenerating, setStartGenerating] = useState<boolean>(false);
-  const [countLoadTime, setCountLoadTime] = useState<boolean>(false);
 
   const arrOfNums: number[] = [];
 
-  const generateOneRnadom = () => {
+  const generateOneRandom = () => {
     for (let i = 0; i < 10; i++) {
       arrOfNums.push(Math.floor(Math.random() * 10));
     }
@@ -21,7 +19,7 @@ function App() {
   useEffect(() => {
     if (startGenerating) {
       const generateWholeNumber = setTimeout(() => {
-        generateOneRnadom();
+        generateOneRandom();
         const number = `(${arrOfNums[0]}${arrOfNums[1]}${arrOfNums[2]}) ${arrOfNums[3]}${arrOfNums[4]}${arrOfNums[5]}-${arrOfNums[6]}${arrOfNums[7]}${arrOfNums[8]}`;
         setNumbersList((prev) => [...prev, number]);
       }, 1);
@@ -37,15 +35,15 @@ function App() {
     setStartGenerating(true);
   };
 
-  console.log(numbersList);
+  console.log();
 
   return (
     <main className="main-container">
       <button onClick={handleGenerateButton} className="generate">
         Generate
       </button>
-      <h1>It took {stopCounting()}s to generate numbers</h1>
-      {showProgressiveBar && <ProgressBar width={0} />}
+      <h1>It took {}s to generate numbers</h1>
+      {showProgressiveBar && <ProgressBar width={100} />}
       <table>
         <tr>
           <th>Column 1</th>
