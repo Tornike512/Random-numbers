@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ProgressBar from "./Components/ProgressBar/ProgressBar";
+import useCounter from "./Hooks/useCounter";
 
 import "./App.scss";
 
@@ -35,7 +36,13 @@ function App() {
     setStartGenerating(true);
   };
 
-  console.log();
+  const formatTime = (count: number) => {
+    const seconds = Math.floor(count / 1000);
+    const milliseconds = Math.floor((count % 1000) / 10);
+    return `${seconds}.${milliseconds < 10 ? "0" : ""}${milliseconds}`;
+  };
+
+  console.log(formatTime(useCounter(startGenerating)));
 
   return (
     <main className="main-container">
