@@ -1,10 +1,10 @@
 import "./ProgressBar.scss";
 
-export function ProgressBar() {
+export function ProgressBar({ width }: { width: number }) {
   return (
     <div className="container">
       <div className="progress2 progress-moved">
-        <div className="progress-bar2"></div>
+        <div style={{ width: `${width}%` }} className="progress-bar2"></div>
       </div>
     </div>
   );

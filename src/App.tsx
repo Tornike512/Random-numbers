@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { stopCounting, milliseconds } from "./Utils/countLoad";
 import ProgressBar from "./Components/ProgressBar/ProgressBar";
 
 import "./App.scss";
@@ -6,6 +7,9 @@ import "./App.scss";
 function App() {
   const [numbersList, setNumbersList] = useState<string[]>([]);
   const [showProgressiveBar, setShowProgressiveBar] = useState<boolean>(false);
+  const [countLoadTime, setCountLoadTime] = useState<number>(0);
+
+  console.log(stopCounting());
 
   const arrOfNums: number[] = [];
 
@@ -18,7 +22,6 @@ function App() {
   const generateWholeNumber = setTimeout(() => {
     generateOneRnadom();
     const number = `(${arrOfNums[0]}${arrOfNums[1]}${arrOfNums[2]}) ${arrOfNums[3]}${arrOfNums[4]}${arrOfNums[5]}-${arrOfNums[6]}${arrOfNums[7]}${arrOfNums[8]}`;
-    console.log(number);
     setNumbersList((prev) => [...prev, number]);
   }, 1);
 
@@ -37,7 +40,7 @@ function App() {
       <button onClick={handleGenerateButton} className="generate">
         Generate
       </button>
-      {showProgressiveBar && <ProgressBar />}
+      {showProgressiveBar && <ProgressBar width={0} />}
       <table>
         <tr>
           <th>Column 1</th>
