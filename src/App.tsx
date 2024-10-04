@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import ProgressBar from "./Components/ProgressBar/ProgressBar";
 
 import "./App.scss";
 
 function App() {
   const [numbersList, setNumbersList] = useState<string[]>([]);
+  const [showProgressiveBar, setShowProgressiveBar] = useState<boolean>(false);
 
   const arrOfNums: number[] = [];
 
@@ -26,11 +28,16 @@ function App() {
     }
   }, [numbersList]);
 
-  console.log(numbersList);
+  const handleGenerateButton = () => {
+    setShowProgressiveBar(true);
+  };
 
   return (
     <main className="main-container">
-      <button className="generate">Generate</button>
+      <button onClick={handleGenerateButton} className="generate">
+        Generate
+      </button>
+      {showProgressiveBar && <ProgressBar />}
       <table>
         <tr>
           <th>Column 1</th>
