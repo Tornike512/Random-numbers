@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { stopCounting, milliseconds } from "./Utils/countLoad";
+import { stopCounting } from "./Utils/countLoad";
 import ProgressBar from "./Components/ProgressBar/ProgressBar";
 
 import "./App.scss";
@@ -7,9 +7,8 @@ import "./App.scss";
 function App() {
   const [numbersList, setNumbersList] = useState<string[]>([]);
   const [showProgressiveBar, setShowProgressiveBar] = useState<boolean>(false);
-  const [countLoadTime, setCountLoadTime] = useState<number>(0);
-
-  console.log(stopCounting());
+  const [startGenerating, setStartGenerating] = useState<boolean>(false);
+  const [countLoadTime, setCountLoadTime] = useState<boolean>(false);
 
   const arrOfNums: number[] = [];
 
@@ -19,27 +18,33 @@ function App() {
     }
   };
 
-  const generateWholeNumber = setTimeout(() => {
-    generateOneRnadom();
-    const number = `(${arrOfNums[0]}${arrOfNums[1]}${arrOfNums[2]}) ${arrOfNums[3]}${arrOfNums[4]}${arrOfNums[5]}-${arrOfNums[6]}${arrOfNums[7]}${arrOfNums[8]}`;
-    setNumbersList((prev) => [...prev, number]);
-  }, 1);
-
   useEffect(() => {
-    if (numbersList.length === 1200) {
-      clearTimeout(generateWholeNumber);
+    if (startGenerating) {
+      const generateWholeNumber = setTimeout(() => {
+        generateOneRnadom();
+        const number = `(${arrOfNums[0]}${arrOfNums[1]}${arrOfNums[2]}) ${arrOfNums[3]}${arrOfNums[4]}${arrOfNums[5]}-${arrOfNums[6]}${arrOfNums[7]}${arrOfNums[8]}`;
+        setNumbersList((prev) => [...prev, number]);
+      }, 1);
+
+      if (numbersList.length === 1200) {
+        clearTimeout(generateWholeNumber);
+      }
     }
-  }, [numbersList]);
+  }, [startGenerating, numbersList]);
 
   const handleGenerateButton = () => {
     setShowProgressiveBar(true);
+    setStartGenerating(true);
   };
+
+  console.log(numbersList);
 
   return (
     <main className="main-container">
       <button onClick={handleGenerateButton} className="generate">
         Generate
       </button>
+      <h1>It took {stopCounting()}s to generate numbers</h1>
       {showProgressiveBar && <ProgressBar width={0} />}
       <table>
         <tr>

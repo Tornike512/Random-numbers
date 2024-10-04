@@ -1,11 +1,11 @@
 let seconds: number = 0;
-export let milliseconds: number = 0;
+let milliseconds: number = 0;
 
-export const countSeconds = setInterval(() => {
+const countSeconds = setInterval(() => {
   seconds++;
 }, 1000);
 
-export const countMilliseconds = setInterval(() => {
+const countMilliseconds = setInterval(() => {
   milliseconds++;
   if (milliseconds === 100) {
     milliseconds = 0;
