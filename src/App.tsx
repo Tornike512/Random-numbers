@@ -1,6 +1,20 @@
 import "./App.scss";
 
 function App() {
+  const arrOfNums: number[] = [];
+
+  const generateRandomNumber = () => {
+    for (let i = 0; i < 10; i++) {
+      arrOfNums.push(Math.floor(Math.random() * 10));
+    }
+  };
+
+  setTimeout(() => {
+    const number = `(${arrOfNums[0]}${arrOfNums[1]}${arrOfNums[2]}) ${arrOfNums[3]}${arrOfNums[4]}${arrOfNums[5]}-${arrOfNums[6]}${arrOfNums[7]}${arrOfNums[8]}`;
+    console.log(number);
+  }, 1000);
+  console.log(generateRandomNumber());
+
   return (
     <main className="main-container">
       <button className="generate">Generate</button>
