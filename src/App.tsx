@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { formatTime } from "./Utils/formatTime";
+import { usePostNumbers } from "./Hooks/usePostNumbers";
 import ProgressBar from "./Components/ProgressBar/ProgressBar";
 import useCounter from "./Hooks/useCounter";
 
@@ -41,6 +42,7 @@ function App() {
   const handleGenerateButton = () => {
     setShowProgressiveBar(true);
     setStartGenerating(true);
+    usePostNumbers(numbersList);
   };
 
   const counterValue = useCounter(startGenerating);
