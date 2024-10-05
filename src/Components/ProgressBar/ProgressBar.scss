@@ -25,9 +25,8 @@
 }
 
 .progress-moved .progress-bar2 {
-  width: 100%;
   background-color: #ef476f;
-  animation: progressAnimation 6s;
+  animation: progressAnimation 3s;
 }
 
 @keyframes progressAnimation {
@@ -35,8 +34,8 @@
     width: 5%;
     background-color: #f9bcca;
   }
-  100% {
-    width: 100%;
+  90% {
+    width: 90%;
     background-color: #ef476f;
   }
 }

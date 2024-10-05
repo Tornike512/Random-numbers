@@ -10,16 +10,17 @@ body {
 }
 
 .main-container {
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 20px;
 
   .generate {
     width: 20%;
     height: 44px;
-    margin-bottom: 20px;
+    margin: 100px 0 20px 0;
     background-color: #ef476f;
     border-radius: 6px;
     color: #ffffff;
@@ -32,5 +33,9 @@ body {
     &:hover {
       background-color: #f76c8c;
     }
+  }
+
+  .table-wrapper {
+    display: flex;
   }
 }

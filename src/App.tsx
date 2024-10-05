@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
+import { formatTime } from "./Utils/formatTime";
 import ProgressBar from "./Components/ProgressBar/ProgressBar";
 import useCounter from "./Hooks/useCounter";
 
 import "./App.scss";
+import { Tables } from "./Components/Tables";
 
 function App() {
   const [numbersList, setNumbersList] = useState<string[]>([]);
   const [showProgressiveBar, setShowProgressiveBar] = useState<boolean>(false);
   const [startGenerating, setStartGenerating] = useState<boolean>(false);
+  const [showLoadTime, setShowLoadTime] = useState<boolean>(false);
+  const [progressiveWidth, setProgressiveWidth] = useState<number>(90);
 
   const arrOfNums: number[] = [];
 
@@ -27,6 +31,9 @@ function App() {
 
       if (numbersList.length === 1200) {
         clearTimeout(generateWholeNumber);
+        setStartGenerating(false);
+        setShowLoadTime(true);
+        setProgressiveWidth(100);
       }
     }
   }, [startGenerating, numbersList]);
@@ -36,31 +43,33 @@ function App() {
     setStartGenerating(true);
   };
 
-  const formatTime = (count: number) => {
-    const seconds = Math.floor(count / 1000);
-    const milliseconds = Math.floor((count % 1000) / 10);
-    return `${seconds}.${milliseconds < 10 ? "0" : ""}${milliseconds}`;
-  };
-
-  console.log(formatTime(useCounter(startGenerating)));
+  const counterValue = useCounter(startGenerating);
 
   return (
     <main className="main-container">
       <button onClick={handleGenerateButton} className="generate">
         Generate
       </button>
-      <h1>It took {}s to generate numbers</h1>
-      {showProgressiveBar && <ProgressBar width={100} />}
-      <table>
-        <tr>
-          <th>Column 1</th>
-          <th>Column 2</th>
-        </tr>
-        <tr>
-          <td>Data 1</td>
-          <td>Data 2</td>
-        </tr>
-      </table>
+
+      <h1>
+        {showLoadTime &&
+          `It took ${formatTime(
+            counterValue
+          )} seconds to generate phone numbers`}
+      </h1>
+
+      {showProgressiveBar && <ProgressBar width={progressiveWidth} />}
+      {showLoadTime && (
+        <div className="table-wrapper">
+          <Tables numbersList={numbersList} column1={0} column2={100} />
+          <Tables numbersList={numbersList} column1={200} column2={300} />
+          <Tables numbersList={numbersList} column1={400} column2={500} />
+          <Tables numbersList={numbersList} column1={600} column2={700} />
+          <Tables numbersList={numbersList} column1={800} column2={900} />
+          <Tables numbersList={numbersList} column1={1000} column2={1100} />
+          <Tables numbersList={numbersList} column1={1200} column2={1300} />
+        </div>
+      )}
     </main>
   );
 }
